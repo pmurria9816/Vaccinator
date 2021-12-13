@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-import com.assignment2.vaccinator.modules.User;
+import com.assignment2.vaccinator.models.User;
 
 public class UserDAO extends SQLiteOpenHelper {
 

@@ -1,4 +1,4 @@
-package com.assignment2.vaccinator.modules;
+package com.assignment2.vaccinator.models;
 
 public class User {
 
