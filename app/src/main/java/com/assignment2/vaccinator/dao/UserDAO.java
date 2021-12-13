@@ -15,7 +15,7 @@ public class UserDAO extends SQLiteOpenHelper {
     public static final String dbName = "Vaccinator";
     public static final int version = 1;
     public static final String TABLE_NAME = "user";
-    public static final String COL1 = "id";
+    public static final String COL1 = "userId";
     public static final String COL2 = "email";
     public static final String COL3 = "password";
     public static final String COL4 = "firstName";
