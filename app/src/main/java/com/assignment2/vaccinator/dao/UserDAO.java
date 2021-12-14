@@ -22,7 +22,6 @@ public class UserDAO extends SQLiteOpenHelper {
     public static final String COL5 = "lastName";
     public static final String COL6 = "phone";
 
-
     public static final String CREATE_TABLE = "create table " + TABLE_NAME + "("
             + COL1 + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + COL2 + " TEXT NOT NULL, "
@@ -54,6 +53,9 @@ public class UserDAO extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(COL2, data.getEmail());
         values.put(COL3, data.getPassword());
+        values.put(COL4, data.getFirstName());
+        values.put(COL5, data.getLastName());
+        values.put(COL6, data.getPhone());
 
         SQLiteDatabase db = this.getWritableDatabase();
         long result = db.insert(TABLE_NAME, null, values);
@@ -90,7 +92,7 @@ public class UserDAO extends SQLiteOpenHelper {
         if(cursor == null)
             return false;
 
-        if (login == cursor.getString(1) && password == cursor.getString(2))
+        if (cursor.getString(1).compareTo(login) == 0 && cursor.getString(2).compareTo(password) == 0)
             return true;
         return false;
     }
