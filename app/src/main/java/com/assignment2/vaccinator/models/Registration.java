@@ -1,11 +1,17 @@
 package com.assignment2.vaccinator.models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Registration {
 
-
     private int total;
+
     private int today;
+
+    @SerializedName("cit_18_45")
     private int citizenBetween18And45;
+
+    @SerializedName("cit_45_above")
     private int citizenAbove45;
 
     public Registration() {
@@ -17,7 +23,6 @@ public class Registration {
         this.citizenBetween18And45 = citizenBetween18And45;
         this.citizenAbove45 = citizenAbove45;
     }
-
 
     public int getTotal() {
         return total;

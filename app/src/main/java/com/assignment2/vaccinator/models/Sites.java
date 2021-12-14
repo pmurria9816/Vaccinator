@@ -3,16 +3,18 @@ package com.assignment2.vaccinator.models;
 public class Sites {
 
     private int total;
-    private int governmentSites;
-    private int privateSites;
+
+    private int govt;
+
+    private int pvt;
 
     public Sites() {
     }
 
-    public Sites(int total, int governmentSites, int privateSites) {
+    public Sites(int total, int govt, int pvt) {
         this.total = total;
-        this.governmentSites = governmentSites;
-        this.privateSites = privateSites;
+        this.govt = govt;
+        this.pvt = pvt;
     }
 
     public int getTotal() {
@@ -23,28 +25,28 @@ public class Sites {
         this.total = total;
     }
 
-    public int getGovernmentSites() {
-        return governmentSites;
+    public int getGovt() {
+        return govt;
     }
 
-    public void setGovernmentSites(int governmentSites) {
-        this.governmentSites = governmentSites;
+    public void setGovt(int govt) {
+        this.govt = govt;
     }
 
-    public int getPrivateSites() {
-        return privateSites;
+    public int getPvt() {
+        return pvt;
     }
 
-    public void setPrivateSites(int privateSites) {
-        this.privateSites = privateSites;
+    public void setPvt(int pvt) {
+        this.pvt = pvt;
     }
 
     @Override
     public String toString() {
         return "Sites{" +
                 "total=" + total +
-                ", governmentSites=" + governmentSites +
-                ", privateSites=" + privateSites +
+                ", governmentSites=" + govt +
+                ", privateSites=" + pvt +
                 '}';
     }
 }

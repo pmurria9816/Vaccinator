@@ -1,5 +1,7 @@
 package com.assignment2.vaccinator.models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Vaccination {
 
     private int total;
@@ -7,7 +9,11 @@ public class Vaccination {
     private int covishield;
     private int covaxin;
     private int sputnik;
+
+    @SerializedName("tot_dose_1")
     private int totalDose1;
+
+    @SerializedName("tot_dose_2")
     private int totalDose2;
 
     public Vaccination() {
