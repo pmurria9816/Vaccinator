@@ -87,9 +87,10 @@ public class UserDAO extends SQLiteOpenHelper {
     }
 
     public boolean authenticate(String login, String password){
+
         Cursor cursor = searchData(login);
 
-        if(cursor == null)
+        if(cursor.getCount() < 1)
             return false;
 
         if (cursor.getString(1).compareTo(login) == 0 && cursor.getString(2).compareTo(password) == 0)

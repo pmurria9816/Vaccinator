@@ -40,6 +40,17 @@ public class LaunchActivity extends AppCompatActivity {
                 email = findViewById(R.id.regEmail);
                 password = findViewById(R.id.regPassword);
                 confirm = findViewById(R.id.regConfirmPassword);
+
+                boolean wrongFirst = checkError(firstName);
+                boolean wrongLast = checkError(lastName);
+                boolean wrongPhone = checkError(phone);
+                boolean wrongEmail = checkError(email);
+                boolean wrongPass = checkError(password);
+                boolean wrongConfirm = checkError(confirm);
+
+                if(wrongFirst || wrongLast || wrongPhone || wrongEmail || wrongPass || wrongConfirm)
+                    return;
+
                 if(password.getText().toString().compareTo(confirm.getText().toString()) == 0) {
 
                     User user = new User(email.getText().toString(), password.getText().toString(), firstName.getText().toString(), lastName.getText().toString(), phone.getText().toString());
@@ -83,6 +94,12 @@ public class LaunchActivity extends AppCompatActivity {
 
                 UserDAO db = new UserDAO(getApplicationContext());
 
+                boolean wrongName = checkError(username);
+                boolean wrongPass = checkError(password);
+
+                if( wrongPass || wrongName )
+                    return;
+
                 if(db.authenticate(username.getText().toString(), password.getText().toString())) {
                     Intent intent = new Intent(LaunchActivity.this, MainActivity.class);
                     startActivity(intent);
@@ -91,5 +108,15 @@ public class LaunchActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Login Failure", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private boolean checkError(EditText element){
+        boolean error = false;
+        if (element.getText().toString().trim().equalsIgnoreCase("")) {
+            element.setError("This field can not be blank");
+            error = true;
+        }
+
+        return error;
     }
 }
