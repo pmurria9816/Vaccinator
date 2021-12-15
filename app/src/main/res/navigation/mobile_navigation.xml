@@ -17,6 +17,13 @@
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 
+
+    <fragment
+        android:id="@+id/navigation_book_appointment"
+        android:name="com.assignment2.vaccinator.ui.MapFragment"
+        android:label="Book Appointments"
+        tools:layout="@layout/fragment_map" />
+
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.assignment2.vaccinator.ui.notifications.NotificationsFragment"

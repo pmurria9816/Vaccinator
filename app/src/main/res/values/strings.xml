@@ -22,4 +22,7 @@
     <string name="confirm_this_password">Confirm this password</string>
     <string name="save">Save</string>
     <string name="enter_your_credentials">Enter your credentials</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
