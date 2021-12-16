@@ -17,7 +17,7 @@ public class Appointment {
     public Appointment() {
     }
 
-    public Appointment(int user, String firstName, String lastName, int age, String email, String hospital, Date slot, String time, String vaccine) {
+    public Appointment(int user, String firstName, String lastName, int age, String email, String hospital, Date slot,String time, String vaccine) {
         this.user = user;
         this.firstName = firstName;
         this.lastName = lastName;
