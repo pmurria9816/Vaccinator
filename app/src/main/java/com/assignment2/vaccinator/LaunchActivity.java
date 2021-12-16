@@ -3,6 +3,7 @@ package com.assignment2.vaccinator;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,8 +11,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.assignment2.vaccinator.dao.UserDAO;
+import androidx.appcompat.app.AppCompatActivity;
+import com.assignment2.vaccinator.database.DatabaseHandler;
 import com.assignment2.vaccinator.models.User;
 
 public class LaunchActivity extends AppCompatActivity {
@@ -23,8 +24,9 @@ public class LaunchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
-
         Button save = (Button) findViewById(R.id.saveUserButton);
+        dbHandler = DatabaseHandler.getInstance(getApplicationContext());
+
 
         layout = findViewById(R.id.registerLayout);
         layout.setVisibility(View.GONE);
@@ -101,7 +103,15 @@ public class LaunchActivity extends AppCompatActivity {
                 if( wrongPass || wrongName )
                     return;
 
-                if(db.authenticate(username.getText().toString(), password.getText().toString())) {
+                int auth = dbHandler.authenticate(username.getText().toString(), password.getText().toString());
+
+                if(auth > 0) {
+
+                    SharedPreferences pref = getApplicationContext().getSharedPreferences("preferences", 0); // 0 - for private mode
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putInt("userId", auth);
+                    editor.commit();
+
                     Intent intent = new Intent(LaunchActivity.this, MainActivity.class);
                     startActivity(intent);
                 }
