@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.assignment2.vaccinator.AppointmentFragment;
 import com.assignment2.vaccinator.R;
 import com.assignment2.vaccinator.services.GetNearbyPlacesData;
 import com.google.android.gms.common.ConnectionResult;
@@ -68,8 +70,25 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
         hospitalAddress = v.findViewById(R.id.hospitalAddress);
         bottomSheet = v.findViewById(R.id.bottom_sheet);
         book = v. findViewById(R.id.book_btn);
+
+        book.setOnClickListener(view -> {
+            Bundle arguments = new Bundle();
+            if(hospitalName.getText().toString().length()>0) {
+
+                arguments.putString("hospital", hospitalName.getText().toString());
+                AppointmentFragment appointmentFragment = new AppointmentFragment();
+                appointmentFragment.setArguments(arguments);
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+//              transaction.setCustomAnimations(R.anim.nav_default_enter_anim, R.anim.nav_default_enter_anim);
+                transaction.replace(R.id.map_frag_container, appointmentFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
         return v;
     }
+
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -89,6 +108,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
         ));
 
         map.setOnMarkerClickListener(this::onMarkerClick);
+
+        map.setOnMapClickListener(latLng -> {
+            bottomSheet.setVisibility(View.GONE);
+        });
 
 
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {

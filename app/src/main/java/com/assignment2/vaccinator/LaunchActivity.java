@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.assignment2.vaccinator.dao.UserDAO;
@@ -16,6 +17,7 @@ import com.assignment2.vaccinator.models.User;
 public class LaunchActivity extends AppCompatActivity {
 
     LinearLayout layout;
+    TextView title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,46 +28,44 @@ public class LaunchActivity extends AppCompatActivity {
 
         layout = findViewById(R.id.registerLayout);
         layout.setVisibility(View.GONE);
+        title = findViewById(R.id.Title);
 
         //Saving user events
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        save.setOnClickListener(view -> {
 
-                EditText firstName, lastName, phone, email, password, confirm;
+            EditText firstName, lastName, phone, email, password, confirm;
 
-                firstName = findViewById(R.id.regFirstName);
-                lastName = findViewById(R.id.regLastName);
-                phone = findViewById(R.id.regPhone);
-                email = findViewById(R.id.regEmail);
-                password = findViewById(R.id.regPassword);
-                confirm = findViewById(R.id.regConfirmPassword);
+            firstName = findViewById(R.id.regFirstName);
+            lastName = findViewById(R.id.regLastName);
+            phone = findViewById(R.id.regPhone);
+            email = findViewById(R.id.regEmail);
+            password = findViewById(R.id.regPassword);
+            confirm = findViewById(R.id.regConfirmPassword);
 
-                boolean wrongFirst = checkError(firstName);
-                boolean wrongLast = checkError(lastName);
-                boolean wrongPhone = checkError(phone);
-                boolean wrongEmail = checkError(email);
-                boolean wrongPass = checkError(password);
-                boolean wrongConfirm = checkError(confirm);
+            boolean wrongFirst = checkError(firstName);
+            boolean wrongLast = checkError(lastName);
+            boolean wrongPhone = checkError(phone);
+            boolean wrongEmail = checkError(email);
+            boolean wrongPass = checkError(password);
+            boolean wrongConfirm = checkError(confirm);
 
-                if(wrongFirst || wrongLast || wrongPhone || wrongEmail || wrongPass || wrongConfirm)
-                    return;
+            if(wrongFirst || wrongLast || wrongPhone || wrongEmail || wrongPass || wrongConfirm)
+                return;
 
-                if(password.getText().toString().compareTo(confirm.getText().toString()) == 0) {
+            if(password.getText().toString().compareTo(confirm.getText().toString()) == 0) {
 
-                    User user = new User(email.getText().toString(), password.getText().toString(), firstName.getText().toString(), lastName.getText().toString(), phone.getText().toString());
-                    UserDAO db = new UserDAO(getApplicationContext());
-                    db.insert(user);
-                    Toast.makeText(getApplicationContext(), "User successfully registered!", Toast.LENGTH_SHORT).show();
+                User user = new User(email.getText().toString(), password.getText().toString(), firstName.getText().toString(), lastName.getText().toString(), phone.getText().toString());
+                UserDAO db = new UserDAO(getApplicationContext());
+                db.insert(user);
+                Toast.makeText(getApplicationContext(), "User successfully registered!", Toast.LENGTH_SHORT).show();
 
-                    layout = findViewById(R.id.loginLayout);
-                    layout.setVisibility(View.VISIBLE);
-                    layout = findViewById(R.id.registerLayout);
-                    layout.setVisibility(View.GONE);
-                }
-                else{
-                    Toast.makeText(getApplicationContext(), "Passwords doesn't match", Toast.LENGTH_SHORT).show();
-                }
+                layout = findViewById(R.id.loginLayout);
+                layout.setVisibility(View.VISIBLE);
+                layout = findViewById(R.id.registerLayout);
+                layout.setVisibility(View.GONE);
+            }
+            else{
+                Toast.makeText(getApplicationContext(), "Passwords doesn't match", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -74,6 +74,7 @@ public class LaunchActivity extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                title.setText("Register");
                 layout = findViewById(R.id.loginLayout);
                 layout.setVisibility(View.GONE);
                 layout = findViewById(R.id.registerLayout);
