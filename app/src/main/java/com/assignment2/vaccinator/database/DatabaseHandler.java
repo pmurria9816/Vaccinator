@@ -17,21 +17,23 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserAppointmentDatabaseHandler extends SQLiteOpenHelper {
+public class DatabaseHandler extends SQLiteOpenHelper {
 
-    public static final String dbName = "Vaccinator";
-    public static final int version = 1;
+    private static DatabaseHandler dbInstance;
+
+    private static final String dbName = "Vaccinator";
+    private static final int version = 1;
 
     //User Table
-    public static final String USER_TABLE_NAME = "user";
-    public static final String USER_COL1 = "userId";
-    public static final String USER_COL2 = "email";
-    public static final String USER_COL3 = "password";
-    public static final String USER_COL4 = "firstName";
-    public static final String USER_COL5 = "lastName";
-    public static final String USER_COL6 = "phone";
+    private static final String USER_TABLE_NAME = "user";
+    private static final String USER_COL1 = "userId";
+    private static final String USER_COL2 = "email";
+    private static final String USER_COL3 = "password";
+    private static final String USER_COL4 = "firstName";
+    private static final String USER_COL5 = "lastName";
+    private static final String USER_COL6 = "phone";
 
-    public static final String CREATE_USER_TABLE = "CREATE TABLE IF NOT EXISTS " + USER_TABLE_NAME + "("
+    private static final String CREATE_USER_TABLE = "CREATE TABLE IF NOT EXISTS " + USER_TABLE_NAME + "("
             + USER_COL1 + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + USER_COL2 + " TEXT NOT NULL, "
             + USER_COL3 + " TEXT NOT NULL, "
@@ -43,18 +45,18 @@ public class UserAppointmentDatabaseHandler extends SQLiteOpenHelper {
     private static final String DROP_USER_TABLE = "DROP TABLE IF EXISTS " + USER_TABLE_NAME;
 
     //Appointment Table
-    public static final String APPT_TABLE_NAME = "appointment";
-    public static final String APPT_COL1 = "appointmentId";
-    public static final String APPT_COL2 = "user";
-    public static final String APPT_COL3 = "firstName";
-    public static final String APPT_COL4 = "lastName";
-    public static final String APPT_COL5 = "email";
-    public static final String APPT_COL6 = "hospital";
-    public static final String APPT_COL7 = "vaccine";
-    public static final String APPT_COL8 = "age";
-    public static final String APPT_COL9 = "dateSlot";
+    private static final String APPT_TABLE_NAME = "appointment";
+    private static final String APPT_COL1 = "appointmentId";
+    private static final String APPT_COL2 = "user";
+    private static final String APPT_COL3 = "firstName";
+    private static final String APPT_COL4 = "lastName";
+    private static final String APPT_COL5 = "email";
+    private static final String APPT_COL6 = "hospital";
+    private static final String APPT_COL7 = "vaccine";
+    private static final String APPT_COL8 = "age";
+    private static final String APPT_COL9 = "dateSlot";
 
-    public static final String CREATE_APPT_TABLE = "CREATE TABLE IF NOT EXISTS " + APPT_TABLE_NAME + "("
+    private static final String CREATE_APPT_TABLE = "CREATE TABLE IF NOT EXISTS " + APPT_TABLE_NAME + "("
             + APPT_COL1 + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + APPT_COL2 + " INTEGER NOT NULL REFERENCES user(userid) ON UPDATE CASCADE ON DELETE CASCADE, "
             + APPT_COL3 + " TEXT NOT NULL, "
@@ -69,9 +71,16 @@ public class UserAppointmentDatabaseHandler extends SQLiteOpenHelper {
     private static final String DROP_APPT_TABLE = "DROP TABLE IF EXISTS " + APPT_TABLE_NAME;
 
 
-    public UserAppointmentDatabaseHandler(@Nullable Context context)
+    private DatabaseHandler(@Nullable Context context)
     {
         super(context, dbName, null, version);
+    }
+
+    public static synchronized DatabaseHandler getInstance(Context context) {
+        if (dbInstance == null) {
+            dbInstance = new DatabaseHandler(context.getApplicationContext());
+        }
+        return dbInstance;
     }
 
     @Override
@@ -124,16 +133,19 @@ public class UserAppointmentDatabaseHandler extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public boolean authenticate(String login, String password){
+    @SuppressLint("Range")
+    public int authenticate(String login, String password){
 
         Cursor cursor = getUserByEmail(login);
 
         if(cursor.getCount() < 1)
-            return false;
+            return -1;
 
-        if (cursor.getString(1).compareTo(login) == 0 && cursor.getString(2).compareTo(password) == 0)
-            return true;
-        return false;
+        if (cursor.getString(1).compareTo(login) == 0 && cursor.getString(2).compareTo(password) == 0) {
+            return cursor.getInt(cursor.getColumnIndex(USER_COL1));
+        }
+
+        return -1;
     }
 
     public boolean addAppointment(Appointment data){ //insert user method
@@ -186,7 +198,7 @@ public class UserAppointmentDatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor;
 
-        if(id.equals(null))
+        if (id == null)
             cursor = db.rawQuery("select * from " + APPT_TABLE_NAME, null);
         else
             cursor = db.rawQuery("select * from " + APPT_TABLE_NAME + " WHERE user = " +id, null);
