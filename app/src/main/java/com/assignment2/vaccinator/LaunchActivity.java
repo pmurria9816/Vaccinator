@@ -19,6 +19,7 @@ public class LaunchActivity extends AppCompatActivity {
 
     LinearLayout layout;
     TextView title;
+    DatabaseHandler dbHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +58,7 @@ public class LaunchActivity extends AppCompatActivity {
             if(password.getText().toString().compareTo(confirm.getText().toString()) == 0) {
 
                 User user = new User(email.getText().toString(), password.getText().toString(), firstName.getText().toString(), lastName.getText().toString(), phone.getText().toString());
-                UserDAO db = new UserDAO(getApplicationContext());
-                db.insert(user);
+                dbHandler.addUser(user);
                 Toast.makeText(getApplicationContext(), "User successfully registered!", Toast.LENGTH_SHORT).show();
 
                 layout = findViewById(R.id.loginLayout);
@@ -94,8 +94,6 @@ public class LaunchActivity extends AppCompatActivity {
 
                 username = findViewById(R.id.loginEmail);
                 password = findViewById(R.id.loginPassword);
-
-                UserDAO db = new UserDAO(getApplicationContext());
 
                 boolean wrongName = checkError(username);
                 boolean wrongPass = checkError(password);
