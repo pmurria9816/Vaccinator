@@ -12,11 +12,12 @@ public class Appointment {
     private String hospital;
     private Date slot;
     private String vaccine;
+    private String time;
 
     public Appointment() {
     }
 
-    public Appointment(int user, String firstName, String lastName, int age, String email, String hospital, Date slot, String vaccine) {
+    public Appointment(int user, String firstName, String lastName, int age, String email, String hospital, Date slot,String time, String vaccine) {
         this.user = user;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -24,6 +25,7 @@ public class Appointment {
         this.email = email;
         this.hospital = hospital;
         this.slot = slot;
+        this.time = time;
         this.vaccine = vaccine;
     }
 
@@ -89,6 +91,14 @@ public class Appointment {
 
     public void setVaccine(String vaccine) {
         this.vaccine = vaccine;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     @Override

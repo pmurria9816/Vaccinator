@@ -304,7 +304,7 @@
                 </LinearLayout>
 
                 <Button
-                    android:id="@+id/submit"
+                    android:id="@+id/book_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
@@ -314,7 +314,7 @@
                     android:layout_marginRight="20dp"
                     android:background="@drawable/submit_btn"
                     android:foregroundGravity="bottom"
-                    android:text="Subscribe"
+                    android:text="Book Appointment"
                     android:textColor="#FDFDFD" />
             </LinearLayout>
         </LinearLayout>

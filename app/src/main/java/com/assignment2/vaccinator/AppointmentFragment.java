@@ -1,6 +1,7 @@
 package com.assignment2.vaccinator;
 
 import android.app.DatePickerDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,19 +12,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.assignment2.vaccinator.database.DatabaseHandler;
+import com.assignment2.vaccinator.models.Appointment;
+
 import java.util.Calendar;
+import java.util.Date;
 
 
 public class AppointmentFragment extends Fragment {
 
-    EditText hospitalInput,dateText;
+    EditText hospitalInput,dateText,firstname,lastname,age,email;
     private DatePickerDialog picker;
     Spinner vaccine,timeSlot;
     int selectedVaccine,selectedTimeslot;
+    Button bookAppointment;
+    DatabaseHandler dbHandler;
     private final String[] vaccines = {"Covaxin", "Pfizer", "Moderna","J&J Janssen"};
     private final String[] timeSlots = {"10:00 am", "11:00 am", "12:00 pm","1:00 pm","2:00 pm","3:00 pm","4:00 pm"};
 
@@ -48,6 +56,12 @@ public class AppointmentFragment extends Fragment {
         vaccine = v.findViewById(R.id.vaccineList);
         timeSlot = v.findViewById(R.id.timeSpinner);
         dateText = v.findViewById(R.id.dateText);
+        bookAppointment = v.findViewById(R.id.book_btn);
+        firstname = v.findViewById(R.id.first_name_input);
+        lastname = v.findViewById(R.id.last_name_input);
+        age = v.findViewById(R.id.age_input);
+        email = v.findViewById(R.id.email_input);
+        dbHandler = DatabaseHandler.getInstance(getContext());
 
         dateText.setInputType(InputType.TYPE_NULL);
 
@@ -71,6 +85,20 @@ public class AppointmentFragment extends Fragment {
                 picker.show();
             }
         } );
+
+        bookAppointment.setOnClickListener(view -> {
+            Appointment appointment = new Appointment();
+            appointment.setUser(getUserId());
+            appointment.setHospital(hospitalInput.getText().toString());
+            appointment.setFirstName(firstname.getText().toString());
+            appointment.setLastName(lastname.getText().toString());
+            appointment.setEmail(email.getText().toString());
+            appointment.setAge(Integer.parseInt(age.getText().toString()));
+            appointment.setTime(timeSlots[selectedTimeslot]);
+            appointment.setVaccine(vaccines[selectedVaccine]);
+            appointment.setSlot(new Date(dateText.getText().toString()));
+            dbHandler.addAppointment(appointment);
+        });
 
 
         // Data Adapter for Screen Spinner
@@ -106,5 +134,13 @@ public class AppointmentFragment extends Fragment {
         });
 
         return v;
+    }
+
+    private int getUserId (){
+
+        SharedPreferences pref = getContext().getSharedPreferences("preferences", 0); // 0 - for private mode
+        SharedPreferences.Editor editor = pref.edit();
+
+        return pref.getInt("userId", -1); // getting Integer
     }
 }
