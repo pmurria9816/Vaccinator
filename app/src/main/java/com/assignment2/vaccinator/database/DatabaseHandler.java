@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -55,6 +56,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String APPT_COL7 = "vaccine";
     private static final String APPT_COL8 = "age";
     private static final String APPT_COL9 = "dateSlot";
+    private static final String APPT_COL10 = "time";
 
     private static final String CREATE_APPT_TABLE = "CREATE TABLE IF NOT EXISTS " + APPT_TABLE_NAME + "("
             + APPT_COL1 + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -65,8 +67,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             + APPT_COL6 + " TEXT NOT NULL, "
             + APPT_COL7 + " TEXT NOT NULL, "
             + APPT_COL8 + " INTEGER NOT NULL, "
-            + APPT_COL9 + " TEXT NOT NULL " +
-            ")" ;
+            + APPT_COL9 + " TEXT NOT NULL, "
+            + APPT_COL10 + " TEXT NOT NULL "
+            + ")" ;
 
     private static final String DROP_APPT_TABLE = "DROP TABLE IF EXISTS " + APPT_TABLE_NAME;
 
@@ -158,6 +161,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(APPT_COL7, data.getVaccine());
         values.put(APPT_COL8, data.getAge());
         values.put(APPT_COL9, data.getSlot().toString());
+        values.put(APPT_COL10, data.getTime());
 
         SQLiteDatabase db = this.getWritableDatabase();
         long result = db.insert(APPT_TABLE_NAME, null, values);
@@ -166,7 +170,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return true;
     }
 
-    public boolean update(Appointment data, int id){
+    public boolean updateAppointment(Appointment data, int id){
         ContentValues values = new ContentValues();
         values.put(APPT_COL1, id);
         values.put(APPT_COL2, data.getUser());
@@ -177,6 +181,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(APPT_COL7, data.getVaccine());
         values.put(APPT_COL8, data.getAge());
         values.put(APPT_COL9, data.getSlot().toString());
+        values.put(APPT_COL10, data.getTime());
 
         SQLiteDatabase db = this.getWritableDatabase();
         long result = db.update(APPT_TABLE_NAME, values, APPT_COL1 + " = " +id, null);
@@ -185,7 +190,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return true;
     }
 
-    public boolean delete(int id){
+    public boolean deleteAppointment(int id){
         SQLiteDatabase db = this.getWritableDatabase();
         long result = db.delete(APPT_TABLE_NAME, APPT_COL1 + " = " +id, null);
         if(result == -1)
@@ -227,11 +232,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     appointment.setHospital(cursor.getString(cursor.getColumnIndex(APPT_COL6)));
                     appointment.setVaccine(cursor.getString(cursor.getColumnIndex(APPT_COL7)));
                     appointment.setAge(cursor.getInt(cursor.getColumnIndex(APPT_COL8)));
+                    appointment.setTime(cursor.getString(cursor.getColumnIndex(APPT_COL10)));
 
                     String slot = cursor.getString(cursor.getColumnIndex(APPT_COL9));
-
                     appointment.setSlot(new SimpleDateFormat("dd/MM/yyyy").parse(slot));
+
+
                 } catch (ParseException e) {
+                    Log.e("ParseException: ", e.toString());
                     e.printStackTrace();
                 }
                 appointments.add(appointment);
