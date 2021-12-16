@@ -33,6 +33,11 @@ public class LaunchActivity extends AppCompatActivity {
         layout.setVisibility(View.GONE);
         title = findViewById(R.id.Title);
 
+        if(getUserId()!=-1){
+            Intent intent = new Intent(LaunchActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
+
         //Saving user events
         save.setOnClickListener(view -> {
 
@@ -127,5 +132,13 @@ public class LaunchActivity extends AppCompatActivity {
         }
 
         return error;
+    }
+
+    private int getUserId (){
+
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("preferences", 0); // 0 - for private mode
+        SharedPreferences.Editor editor = pref.edit();
+
+        return pref.getInt("userId", -1); // getting Integer
     }
 }
