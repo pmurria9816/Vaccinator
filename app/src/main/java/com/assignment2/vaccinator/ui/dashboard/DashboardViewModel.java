@@ -8,6 +8,10 @@ import com.assignment2.vaccinator.controller.ApiClient;
 import com.assignment2.vaccinator.models.CowinResponse;
 import com.assignment2.vaccinator.models.TopBlock;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,10 +29,10 @@ public class DashboardViewModel extends ViewModel {
         return liveCowinResponse;
     }
 
-
     private void fetchCowinResponse() {
 
-        Call<CowinResponse> response = ApiClient.getApiClient().getApi().getCowinData("2021-12-13");
+        String currentDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        Call<CowinResponse> response = ApiClient.getApiClient().getApi().getCowinData(currentDate);
 
         response.enqueue(new Callback<CowinResponse>() {
             @Override
