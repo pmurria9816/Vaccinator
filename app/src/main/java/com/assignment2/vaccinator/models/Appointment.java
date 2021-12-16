@@ -1,7 +1,5 @@
 package com.assignment2.vaccinator.models;
 
-import java.util.Date;
-
 public class Appointment {
 
     private int user;
@@ -10,14 +8,14 @@ public class Appointment {
     private int age;
     private String email;
     private String hospital;
-    private Date slot;
+    private String slot;
     private String time;
     private String vaccine;
 
     public Appointment() {
     }
 
-    public Appointment(int user, String firstName, String lastName, int age, String email, String hospital, Date slot,String time, String vaccine) {
+    public Appointment(int user, String firstName, String lastName, int age, String email, String hospital, String slot,String time, String vaccine) {
         this.user = user;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -77,11 +75,11 @@ public class Appointment {
         this.hospital = hospital;
     }
 
-    public Date getSlot() {
+    public String getSlot() {
         return slot;
     }
 
-    public void setSlot(Date slot) {
+    public void setSlot(String slot) {
         this.slot = slot;
     }
 

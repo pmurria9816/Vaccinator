@@ -6,15 +6,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 
 import com.assignment2.vaccinator.models.Appointment;
 import com.assignment2.vaccinator.models.User;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -180,7 +177,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(APPT_COL6, data.getHospital());
         values.put(APPT_COL7, data.getVaccine());
         values.put(APPT_COL8, data.getAge());
-        values.put(APPT_COL9, data.getSlot().toString());
+        values.put(APPT_COL9, data.getSlot());
         values.put(APPT_COL10, data.getTime());
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -224,27 +221,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //populate the student grade object.
                 Appointment appointment = new Appointment();
-                try {
-                    //appointment.set(cursor.getInt(cursor.getColumnIndex(COL1)));
-                    appointment.setFirstName(cursor.getString(cursor.getColumnIndex(APPT_COL3)));
-                    appointment.setLastName(cursor.getString(cursor.getColumnIndex(APPT_COL4)));
-                    appointment.setEmail(cursor.getString(cursor.getColumnIndex(APPT_COL5)));
-                    appointment.setHospital(cursor.getString(cursor.getColumnIndex(APPT_COL6)));
-                    appointment.setVaccine(cursor.getString(cursor.getColumnIndex(APPT_COL7)));
-                    appointment.setAge(cursor.getInt(cursor.getColumnIndex(APPT_COL8)));
-                    appointment.setTime(cursor.getString(cursor.getColumnIndex(APPT_COL10)));
 
-                    String slot = cursor.getString(cursor.getColumnIndex(APPT_COL9));
-                    appointment.setSlot(new SimpleDateFormat("dd/MM/yyyy").parse(slot));
-
-
-                } catch (ParseException e) {
-                    Log.e("ParseException: ", e.toString());
-                    e.printStackTrace();
-                }
+                //appointment.set(cursor.getInt(cursor.getColumnIndex(COL1)));
+                appointment.setFirstName(cursor.getString(cursor.getColumnIndex(APPT_COL3)));
+                appointment.setLastName(cursor.getString(cursor.getColumnIndex(APPT_COL4)));
+                appointment.setEmail(cursor.getString(cursor.getColumnIndex(APPT_COL5)));
+                appointment.setHospital(cursor.getString(cursor.getColumnIndex(APPT_COL6)));
+                appointment.setVaccine(cursor.getString(cursor.getColumnIndex(APPT_COL7)));
+                appointment.setAge(cursor.getInt(cursor.getColumnIndex(APPT_COL8)));
+                appointment.setSlot(cursor.getString(cursor.getColumnIndex(APPT_COL9)));
+                appointment.setTime(cursor.getString(cursor.getColumnIndex(APPT_COL10)));
                 appointments.add(appointment);
             }
         }
+
         return appointments;
     }
 }

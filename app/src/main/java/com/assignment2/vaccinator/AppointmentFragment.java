@@ -3,9 +3,6 @@ package com.assignment2.vaccinator;
 import android.app.DatePickerDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,11 +14,12 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import androidx.fragment.app.Fragment;
+
 import com.assignment2.vaccinator.database.DatabaseHandler;
 import com.assignment2.vaccinator.models.Appointment;
 
 import java.util.Calendar;
-import java.util.Date;
 
 
 public class AppointmentFragment extends Fragment {
@@ -96,7 +94,8 @@ public class AppointmentFragment extends Fragment {
             appointment.setAge(Integer.parseInt(age.getText().toString()));
             appointment.setTime(timeSlots[selectedTimeslot]);
             appointment.setVaccine(vaccines[selectedVaccine]);
-            appointment.setSlot(new Date(dateText.getText().toString()));
+            appointment.setSlot(dateText.getText().toString());
+
             dbHandler.addAppointment(appointment);
         });
 
