@@ -1,7 +1,5 @@
 package com.assignment2.vaccinator;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,29 +8,31 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.assignment2.vaccinator.dao.UserDAO;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.assignment2.vaccinator.database.UserAppointmentDatabaseHandler;
 import com.assignment2.vaccinator.models.User;
 
 public class LaunchActivity extends AppCompatActivity {
 
     LinearLayout layout;
 
+    UserAppointmentDatabaseHandler dbHandler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
-
+        dbHandler = new UserAppointmentDatabaseHandler(getApplicationContext());
         Button save = (Button) findViewById(R.id.saveUserButton);
 
         layout = findViewById(R.id.registerLayout);
         layout.setVisibility(View.GONE);
 
         //Saving user events
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        save.setOnClickListener(view -> {
 
-                EditText firstName, lastName, phone, email, password, confirm;
+            EditText firstName, lastName, phone, email, password, confirm;
 
                 firstName = findViewById(R.id.regFirstName);
                 lastName = findViewById(R.id.regLastName);
@@ -53,19 +53,17 @@ public class LaunchActivity extends AppCompatActivity {
 
                 if(password.getText().toString().compareTo(confirm.getText().toString()) == 0) {
 
-                    User user = new User(email.getText().toString(), password.getText().toString(), firstName.getText().toString(), lastName.getText().toString(), phone.getText().toString());
-                    UserDAO db = new UserDAO(getApplicationContext());
-                    db.insert(user);
-                    Toast.makeText(getApplicationContext(), "User successfully registered!", Toast.LENGTH_SHORT).show();
+                User user = new User(email.getText().toString(), password.getText().toString(), firstName.getText().toString(), lastName.getText().toString(), phone.getText().toString());
+                dbHandler.addUser(user);
+                Toast.makeText(getApplicationContext(), "User successfully registered!", Toast.LENGTH_SHORT).show();
 
-                    layout = findViewById(R.id.loginLayout);
-                    layout.setVisibility(View.VISIBLE);
-                    layout = findViewById(R.id.registerLayout);
-                    layout.setVisibility(View.GONE);
-                }
-                else{
-                    Toast.makeText(getApplicationContext(), "Passwords doesn't match", Toast.LENGTH_SHORT).show();
-                }
+                layout = findViewById(R.id.loginLayout);
+                layout.setVisibility(View.VISIBLE);
+                layout = findViewById(R.id.registerLayout);
+                layout.setVisibility(View.GONE);
+            }
+            else{
+                Toast.makeText(getApplicationContext(), "Passwords doesn't match", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -92,15 +90,13 @@ public class LaunchActivity extends AppCompatActivity {
                 username = findViewById(R.id.loginEmail);
                 password = findViewById(R.id.loginPassword);
 
-                UserDAO db = new UserDAO(getApplicationContext());
-
                 boolean wrongName = checkError(username);
                 boolean wrongPass = checkError(password);
 
                 if( wrongPass || wrongName )
                     return;
 
-                if(db.authenticate(username.getText().toString(), password.getText().toString())) {
+                if(dbHandler.authenticate(username.getText().toString(), password.getText().toString())) {
                     Intent intent = new Intent(LaunchActivity.this, MainActivity.class);
                     startActivity(intent);
                 }

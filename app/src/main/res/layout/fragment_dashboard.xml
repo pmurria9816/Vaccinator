@@ -12,8 +12,8 @@
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/main_banner"
-        android:contentDescription="TODO" />
+        android:contentDescription="content"
+        android:src="@drawable/main_banner" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_total_vax"
