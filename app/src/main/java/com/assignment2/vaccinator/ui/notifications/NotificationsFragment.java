@@ -41,7 +41,6 @@ public class NotificationsFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         notificationsViewModel =
                 new ViewModelProvider(this).get(NotificationsViewModel.class);
-
         binding = FragmentNotificationsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
@@ -63,15 +62,15 @@ public class NotificationsFragment extends Fragment {
 
     public void bindListAdapter() {
         //Create and set layout manager for recycler view.
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
         //Create and set list adapter for recycler view.
-        AppointmentListAdapter studentGradeListAdapter = new AppointmentListAdapter(getAppointmentList());
-        recyclerView.setAdapter(studentGradeListAdapter);
+        AppointmentListAdapter appointmentListAdapter = new AppointmentListAdapter(getAppointmentList());
+        recyclerView.setAdapter(appointmentListAdapter);
 
         //if any data changes in the list, recycler view is informed.
-        studentGradeListAdapter.notifyDataSetChanged();
+        appointmentListAdapter.notifyDataSetChanged();
     }
 
     public List<Appointment>  getAppointmentList() {

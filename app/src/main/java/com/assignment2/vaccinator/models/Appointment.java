@@ -13,16 +13,11 @@ public class Appointment {
     private Date slot;
     private String time;
     private String vaccine;
-    private String time;
 
     public Appointment() {
     }
 
-<<<<<<< HEAD
     public Appointment(int user, String firstName, String lastName, int age, String email, String hospital, Date slot,String time, String vaccine) {
-=======
-    public Appointment(int user, String firstName, String lastName, int age, String email, String hospital, Date slot, String time, String vaccine) {
->>>>>>> d78e4dffe20dc6a884cb46d32f3be8129760d47d
         this.user = user;
         this.firstName = firstName;
         this.lastName = lastName;
