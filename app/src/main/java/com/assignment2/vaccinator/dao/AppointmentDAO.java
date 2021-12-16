@@ -2,6 +2,7 @@ package com.assignment2.vaccinator.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -98,5 +99,22 @@ public class AppointmentDAO extends SQLiteOpenHelper {
         if(result == -1)
             return false;
         return true;
+    }
+
+    public Cursor getAppointments(@Nullable Integer id) //retrieving data method
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor;
+
+        if(id.equals(null))
+            cursor = db.rawQuery("select * from " + TABLE_NAME, null);
+        else
+            cursor = db.rawQuery("select * from " + TABLE_NAME + "WHERE user = " +id, null);
+
+        if(cursor != null){
+            cursor.moveToFirst();
+        }
+
+        return cursor;
     }
 }
