@@ -16,10 +16,13 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.assignment2.vaccinator.database.DatabaseHandler;
 import com.assignment2.vaccinator.models.Appointment;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -66,25 +69,18 @@ public class AppointmentFragment extends Fragment {
         dateText.setInputType(InputType.TYPE_NULL);
 
         // Click Listener for Date editText
-        dateText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final Calendar cal = Calendar.getInstance();
-                int dayJoin = cal.get(Calendar.DAY_OF_MONTH);
-                int monthJoin = cal.get(Calendar.MONTH);
-                int yearJoin = cal.get(Calendar.YEAR);
+        dateText.setOnClickListener(view -> {
+            final Calendar cal = Calendar.getInstance();
+            int dayJoin = cal.get(Calendar.DAY_OF_MONTH);
+            int monthJoin = cal.get(Calendar.MONTH);
+            int yearJoin = cal.get(Calendar.YEAR);
 
-                picker = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        String dateStr = day+"/"+(month+1)+"/"+year;
-                        dateText.setText(dateStr);
-                    }
-                },yearJoin,monthJoin,dayJoin);
-
-                picker.show();
-            }
-        } );
+            picker = new DatePickerDialog(getContext(), (datePicker, year, month, day) -> {
+                String dateStr = day+"/"+(month+1)+"/"+year;
+                dateText.setText(dateStr);
+            },yearJoin,monthJoin,dayJoin);
+            picker.show();
+        });
 
         bookAppointment.setOnClickListener(view -> {
             Appointment appointment = new Appointment();
@@ -97,7 +93,12 @@ public class AppointmentFragment extends Fragment {
             appointment.setTime(timeSlots[selectedTimeslot]);
             appointment.setVaccine(vaccines[selectedVaccine]);
             appointment.setSlot(new Date(dateText.getText().toString()));
-            dbHandler.addAppointment(appointment);
+//            dbHandler.addAppointment(appointment);
+            boolean flag = dbHandler.addAppointment(appointment);
+            if(flag){
+                Toast.makeText(getContext(),"Appointment Booked Successfully",Toast.LENGTH_SHORT);
+                resetForm();
+            }
         });
 
 
@@ -134,6 +135,10 @@ public class AppointmentFragment extends Fragment {
         });
 
         return v;
+    }
+
+    private void resetForm() {
+
     }
 
     private int getUserId (){

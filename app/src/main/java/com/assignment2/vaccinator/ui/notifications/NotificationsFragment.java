@@ -24,8 +24,6 @@ import java.util.List;
 
 public class NotificationsFragment extends Fragment {
 
-    private NotificationsViewModel notificationsViewModel;
-
     private List<Appointment> appointmentList;
 
     private FragmentNotificationsBinding binding;
@@ -39,11 +37,6 @@ public class NotificationsFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        notificationsViewModel =
-                new ViewModelProvider(this).get(NotificationsViewModel.class);
-
-        binding = FragmentNotificationsBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
 
         dbHandler = DatabaseHandler.getInstance(getContext());
         pref = getContext().getSharedPreferences("preferences", 0);
@@ -58,7 +51,13 @@ public class NotificationsFragment extends Fragment {
         //Find the list adapter to recycler view
         bindListAdapter();
 
-        return root;
+        return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        bindListAdapter();
     }
 
     public void bindListAdapter() {
