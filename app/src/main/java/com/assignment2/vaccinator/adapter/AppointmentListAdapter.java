@@ -18,8 +18,12 @@ import com.assignment2.vaccinator.models.Appointment;
 
 import java.util.List;
 
+/**
+ * This class works as a list adapter for the recycler view showing list of appointments.
+ */
 public class AppointmentListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    //Declaration of variables.
     private final List<Appointment> appointmentList;
     private FragmentManager manager;
 
@@ -32,6 +36,7 @@ public class AppointmentListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     //Creating view holder class.
     static class ViewHolder extends RecyclerView.ViewHolder {
 
+        //Declaration of variables.
         public TextView tvName,tvApptTime,tvHospital,tvVaccine,tvAge;
         Button editApt;
 
@@ -39,6 +44,7 @@ public class AppointmentListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            //instantiating the declared objects using the resource id.
             tvName = itemView.findViewById(R.id.tvName);
             tvApptTime = itemView.findViewById(R.id.tvApptTime);
             tvHospital = itemView.findViewById(R.id.tvHospital);
@@ -48,14 +54,25 @@ public class AppointmentListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         }
     }
 
+    /**
+     * This method is called when view holder is created and used to inflate the appointment layout.
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        //Inflate student grade layout using layout inflater.
+        //Inflate appointment layout using layout inflater.
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.appointment, parent, false);
         return new ViewHolder(view);
     }
 
+    /**
+     * This method is called when the view holder binds with the appointment list.
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
@@ -67,12 +84,18 @@ public class AppointmentListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         ((ViewHolder) holder).tvHospital.setText(appointment.getHospital());
         ((ViewHolder) holder).tvVaccine.setText(appointment.getVaccine());
         ((ViewHolder) holder).tvAge.setText(String.valueOf(appointment.getAge()));
+
+        //Edit appointment click handler.
         ((ViewHolder) holder).editApt.setOnClickListener(view -> {
+
+            //Creating a bundle to set arguments for appointment fragment.
             Bundle arguments = new Bundle();
             arguments.putSerializable ("isUpdate", true);
             arguments.putSerializable("appointment",appointment);
             AppointmentFragment appointmentFragment = new AppointmentFragment();
             appointmentFragment.setArguments(arguments);
+
+            //Using fragment transaction to move to edit view.
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.replace(R.id.viewAppointment_container, appointmentFragment);
             transaction.addToBackStack(null);
@@ -80,7 +103,7 @@ public class AppointmentListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         });
     }
 
-    //Returns student grade list count.
+    //Returns appointment list count.
     @Override
     public int getItemCount() {
         return appointmentList.size();
