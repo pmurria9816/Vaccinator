@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -20,8 +19,6 @@ import androidx.fragment.app.Fragment;
 import com.assignment2.vaccinator.database.DatabaseHandler;
 import com.assignment2.vaccinator.models.Appointment;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 
