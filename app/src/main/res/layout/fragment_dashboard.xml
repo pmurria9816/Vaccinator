@@ -8,13 +8,6 @@
     android:orientation="vertical"
     tools:context=".ui.dashboard.DashboardFragment">
 
-<!--    <ImageView-->
-<!--        android:id="@+id/imageView"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:contentDescription="content"-->
-<!--        android:src="@drawable/main_banner" />-->
-
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -26,15 +19,16 @@
         android:id="@+id/imageView"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:contentDescription="content"
-        android:src="@drawable/logo" />
+        android:contentDescription="@string/content"
+        android:src="@drawable/logo"
+        tools:ignore="ImageContrastCheck" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginLeft="15dp"
-        android:text="Covi Vaccination"
+        android:layout_marginStart="15dp"
+        android:text="@string/covi_vaccination"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 
 </LinearLayout>
@@ -42,17 +36,19 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginTop="10dp"
-        android:paddingLeft="10dp">
+        android:orientation="horizontal"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp">
 
         <TextView
             android:id="@+id/loggedUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="15dp"
-            android:text="Hello, User"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:text="@string/hello_user"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     </LinearLayout>
@@ -179,7 +175,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10sp"
                     
-                    android:text="value 2"
+                    android:text="@string/value_2"
                     android:textColor="#000000"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -206,7 +202,7 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5sp"
+                android:layout_marginStart="5sp"
                 android:layout_marginTop="5sp"
                 android:orientation="vertical">
 
@@ -215,7 +211,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     
-                    android:text="Sites Conducting Vaccination"
+                    android:text="@string/sites_conducting_vaccination"
                     android:textColor="#000000"
                     android:textSize="16sp"
                     />
@@ -225,7 +221,7 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5sp"
+                android:layout_marginStart="5sp"
                 android:orientation="vertical">
 
                 <TextView
@@ -233,7 +229,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     
-                    android:text="value1"
+                    android:text="@string/value1"
                     android:textColor="#000000"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -243,7 +239,7 @@
             <TableRow
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="5sp"
+                android:layout_marginStart="5sp"
                 android:layout_marginTop="15sp"
                 android:orientation="vertical">
 
@@ -252,7 +248,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     
-                    android:text="Government"
+                    android:text="@string/government"
                     android:textColor="#000000"
                     android:textSize="16sp"
                     />
@@ -261,18 +257,17 @@
                     android:id="@+id/tv_total_sites_pvt_lbl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10sp"
-                    
-                    android:text="Private"
+                    android:layout_marginStart="10sp"
+
+                    android:text="@string/private_hos"
                     android:textColor="#000000"
-                    android:textSize="16sp"
-                    />
+                    android:textSize="16sp" />
             </TableRow>
 
             <TableRow
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5sp"
+                android:layout_marginStart="5sp"
                 android:layout_marginBottom="5sp"
                 android:orientation="horizontal">
 
@@ -280,8 +275,8 @@
                     android:id="@+id/tv_total_sites_govt_val"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    
-                    android:text="value1"
+
+                    android:text="@string/value1"
                     android:textColor="#000000"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -290,9 +285,9 @@
                     android:id="@+id/tv_total_sites_pvt_val"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10sp"
-                    
-                    android:text="value 2"
+                    android:layout_marginStart="10sp"
+
+                    android:text="@string/value_2"
                     android:textColor="#000000"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -319,7 +314,7 @@
             <TableRow
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5sp"
+                android:layout_marginStart="5sp"
                 android:layout_marginTop="5sp"
                 android:orientation="vertical">
 
@@ -328,7 +323,7 @@
                     android:layout_width="230dp"
                     android:layout_height="wrap_content"
                     
-                    android:text="Total Registrations"
+                    android:text="@string/total_registrations"
                     android:textColor="#000000"
                     android:textSize="16sp"
                     />
@@ -337,9 +332,9 @@
                     android:id="@+id/tv_total_reg_today_lbl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10sp"
+                    android:layout_marginStart="10sp"
                     
-                    android:text="Today"
+                    android:text="@string/today"
                     android:textColor="#000000"
                     android:textSize="16sp"
                     />
@@ -348,15 +343,15 @@
             <TableRow
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5sp"
+                android:layout_marginStart="5sp"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/tv_total_reg_val"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    
-                    android:text="value1"
+
+                    android:text="@string/value1"
                     android:textColor="#000000"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -365,9 +360,9 @@
                     android:id="@+id/tv_total_reg_today_val"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10sp"
-                    
-                    android:text="value 2"
+                    android:layout_marginStart="10sp"
+
+                    android:text="@string/value_2"
                     android:textColor="#000000"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -376,7 +371,7 @@
             <TableRow
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5sp"
+                android:layout_marginStart="5sp"
                 android:layout_marginTop="15sp"
                 android:orientation="vertical">
 
@@ -385,7 +380,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     
-                    android:text="Age 18 - 44"
+                    android:text="@string/age_18_44"
                     android:textColor="#000000"
                     android:textSize="16sp"
                     />
@@ -394,9 +389,9 @@
                     android:id="@+id/tv_total_reg_age45_lbl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10sp"
+                    android:layout_marginStart="10sp"
                     
-                    android:text="Age 45+"
+                    android:text="@string/age_45"
                     android:textColor="#000000"
                     android:textSize="16sp"
                     />
@@ -405,7 +400,7 @@
             <TableRow
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5sp"
+                android:layout_marginStart="5sp"
                 android:layout_marginBottom="5sp"
                 android:orientation="horizontal">
 
@@ -413,8 +408,8 @@
                     android:id="@+id/tv_total_reg_age18_val"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    
-                    android:text="value1"
+
+                    android:text="@string/value1"
                     android:textColor="#000000"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -423,9 +418,9 @@
                     android:id="@+id/tv_total_reg_age45_val"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10sp"
-                    
-                    android:text="value 2"
+                    android:layout_marginStart="10sp"
+
+                    android:text="@string/value_2"
                     android:textColor="#000000"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -439,6 +434,7 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/get_vaccinated" />
+        android:text="@string/get_vaccinated"
+        tools:ignore="TextContrastCheck" />
 
 </LinearLayout>

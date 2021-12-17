@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".AppointmentFragment">
-
     <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/title_bg"
         android:touchscreenBlocksFocus="true"
         android:padding="0dp"
         android:layout_margin="0dp"
-        tools:context=".MainActivity">
+        tools:context=".AppointmentFragment">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:orientation="vertical">
             <LinearLayout
@@ -31,9 +27,9 @@
                 <TextView
                     android:id="@+id/Title"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="Covin Vaccination"
+                    android:text="@string/covin_vaccination"
                     android:textColor="#FAFAFA"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -61,7 +57,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:padding="5dp"
-                        android:text="Hospital Name"
+                        android:text="@string/hospital_name"
                         android:textColor="#232323"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -76,9 +72,10 @@
                         android:enabled="false"
                         android:padding="5dp"
                         android:background="@drawable/input_field"
-                        android:hint="Enter Your Name"
+                        android:hint="@string/enter_your_name"
                         android:inputType="textPersonName"
-                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck"
+                        android:autofillHints="" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -92,7 +89,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:padding="5dp"
-                        android:text="First Name"
+                        android:text="@string/first_name"
                         android:textColor="#232323"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -102,13 +99,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:background="@drawable/input_field"
                         android:ems="10"
                         android:enabled="true"
-                        android:padding="5dp"
-                        android:background="@drawable/input_field"
-                        android:hint="Enter Your First Name"
+                        android:hint="@string/enter_your_first_name"
                         android:inputType="textPersonName"
-                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                        android:padding="5dp"
+                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck,TextContrastCheck"
+                        android:autofillHints="" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -122,7 +120,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:padding="5dp"
-                        android:text="Last Name"
+                        android:text="@string/last_name"
                         android:textColor="#232323"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -132,24 +130,25 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:background="@drawable/input_field"
                         android:ems="10"
                         android:enabled="true"
-                        android:padding="5dp"
-                        android:background="@drawable/input_field"
-                        android:hint="Enter Your Last Name"
+                        android:hint="@string/enter_your_last_name"
                         android:inputType="textPersonName"
-                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                        android:padding="5dp"
+                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck,TextContrastCheck"
+                        android:autofillHints="" />
                 </LinearLayout>
 
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:baselineAligned="false">
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -162,7 +161,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="5dp"
-                            android:text="Age"
+                            android:text="@string/age"
                             android:textColor="#232323"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -171,13 +170,14 @@
                             android:id="@+id/age_input"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:background="@drawable/input_field"
                             android:ems="10"
                             android:enabled="true"
-                            android:padding="5dp"
-                            android:background="@drawable/input_field"
-                            android:hint="Enter Age"
+                            android:hint="@string/enter_age"
                             android:inputType="number"
-                            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                            android:padding="5dp"
+                            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck,TextContrastCheck"
+                            android:autofillHints="" />
 
                     </LinearLayout>
 
@@ -185,7 +185,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
                         android:layout_weight="0.4
 "
                         >
@@ -194,9 +194,8 @@
                             android:id="@+id/textViewemail"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:padding="5dp"
-                            android:text="Email"
+                            android:text="@string/email"
                             android:textColor="#232323"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -205,14 +204,14 @@
                             android:id="@+id/email_input"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:background="@drawable/input_field"
                             android:ems="10"
                             android:enabled="true"
+                            android:hint="@string/enter_email"
+                            android:inputType="textEmailAddress"
                             android:padding="5dp"
-                            android:background="@drawable/input_field"
-                            android:hint="Enter Email"
-                            android:inputType="textPersonName"
-                            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck,TextContrastCheck"
+                            android:autofillHints="" />
 
                     </LinearLayout>
 
@@ -232,17 +231,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="5dp"
-                        android:text="Select Vaccine"
+                        android:text="@string/select_vaccine"
                         android:textColor="#232323"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
-                   <Spinner
-                       android:id="@+id/vaccineList"
-                       android:padding="6dp"
-                       android:background="@drawable/input_field"
-                       android:layout_width="match_parent"
-                       android:layout_height="match_parent"/>
+                    <Spinner
+                        android:id="@+id/vaccineList"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/input_field"
+                        android:padding="6dp"
+                        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -256,7 +256,7 @@
                         android:layout_width="140dp"
                         android:layout_height="wrap_content"
                         android:padding="5dp"
-                        android:text="Date"
+                        android:text="@string/date"
                         android:textColor="#232323"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -270,14 +270,16 @@
 
                     <EditText
                         android:id="@+id/dateText"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/input_field"
-                        android:padding="5dp"
                         android:layout_weight="1"
+                        android:background="@drawable/input_field"
                         android:ems="10"
-                        android:hint="Select Date"
-                        android:inputType="textPersonName" />
+                        android:hint="@string/select_date"
+                        android:inputType="date"
+                        android:padding="5dp"
+                        tools:ignore="TouchTargetSizeCheck,TextContrastCheck"
+                        android:autofillHints="" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -292,17 +294,18 @@
                         android:layout_width="140dp"
                         android:layout_height="wrap_content"
                         android:padding="5dp"
-                        android:text="Time Slot"
+                        android:text="@string/time_slot"
                         android:textColor="#232323"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <Spinner
                         android:id="@+id/timeSpinner"
-                        android:background="@drawable/input_field"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"
+                        android:background="@drawable/input_field"
+                        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
                 </LinearLayout>
 
                 <Button
@@ -312,13 +315,13 @@
                     android:layout_gravity="bottom"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginBottom="15dp"
                     android:layout_marginRight="20dp"
+                    android:layout_marginBottom="15dp"
                     android:background="@drawable/submit_btn"
                     android:foregroundGravity="bottom"
-                    android:text="Book Appointment"
-                    android:textColor="#FDFDFD" />
+                    android:text="@string/book_appointment"
+                    android:textColor="#FDFDFD"
+                    tools:ignore="TextContrastCheck" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-</FrameLayout>
