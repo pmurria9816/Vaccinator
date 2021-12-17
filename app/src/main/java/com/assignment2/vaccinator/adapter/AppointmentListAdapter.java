@@ -12,7 +12,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.assignment2.vaccinator.AppointmentFragment;
+import com.assignment2.vaccinator.ui.appointment.AppointmentFragment;
 import com.assignment2.vaccinator.R;
 import com.assignment2.vaccinator.models.Appointment;
 
