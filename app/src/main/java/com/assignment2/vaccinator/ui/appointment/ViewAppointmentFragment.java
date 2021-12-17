@@ -1,4 +1,4 @@
-package com.assignment2.vaccinator.ui.viewAppointment;
+package com.assignment2.vaccinator.ui.appointment;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -27,35 +27,40 @@ public class ViewAppointmentFragment extends Fragment {
     //Declaring objects to be used
     private RecyclerView recyclerView;
 
+    //Database handler
     private DatabaseHandler dbHandler;
 
     SharedPreferences pref; // 0 - for private mode
 
+    /**
+     * This method is called when view is created. We are performing all the initialization in this method.
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
+        //Init
         dbHandler = DatabaseHandler.getInstance(getContext());
         pref = getContext().getSharedPreferences("preferences", 0);
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_appointmentlist, container, false);
 
-        //Initializing recycler view and student grade list
+        //Initializing recycler view and appointment list
         appointmentList = new ArrayList<>();
         recyclerView = view.findViewById(R.id.rvAppointments);
 
-        //Find the list adapter to recycler view
+        //Bind the list adapter to recycler view
         bindListAdapter();
-
         return view;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        bindListAdapter();
-    }
-
+    /**
+     * This method will bind the appointment list adapter to the recycler view.
+     */
     public void bindListAdapter() {
         //Create and set layout manager for recycler view.
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -72,6 +77,8 @@ public class ViewAppointmentFragment extends Fragment {
     public List<Appointment>  getAppointmentList() {
         //Get the appointments from database.
         appointmentList = dbHandler.getAppointments(pref.getInt("userId", -1));
+
+        //If appointment list is blank, show no records found.
         if (appointmentList.isEmpty()) {
             Toast.makeText(getActivity(), "No Records Found", Toast.LENGTH_SHORT).show();
         }

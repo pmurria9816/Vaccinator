@@ -1,4 +1,4 @@
-package com.assignment2.vaccinator;
+package com.assignment2.vaccinator.ui.appointment;
 
 import android.app.DatePickerDialog;
 import android.content.SharedPreferences;
@@ -16,41 +16,69 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.assignment2.vaccinator.R;
 import com.assignment2.vaccinator.database.DatabaseHandler;
 import com.assignment2.vaccinator.models.Appointment;
 
 import java.util.Calendar;
 
-
+/**
+ * This fragment is used to book appointment for the user.
+ */
 public class AppointmentFragment extends Fragment {
 
-    EditText hospitalInput,dateText,firstname,lastname,age,email;
-    private DatePickerDialog picker;
-    Spinner vaccine,timeSlot;
-    int selectedVaccine,selectedTimeslot;
-    Button bookAppointment;
-    DatabaseHandler dbHandler;
-    Appointment oldAppointment;
-    private final String[] vaccines = {"Covaxin", "Pfizer", "Moderna","J&J Janssen"};
-    private final String[] timeSlots = {"10:00 am", "11:00 am", "12:00 pm","1:00 pm","2:00 pm","3:00 pm","4:00 pm"};
+    //Declaring variables.
+    private EditText hospitalInput,dateText,firstname,lastname,age,email;
 
+    private DatePickerDialog picker;
+
+    private Spinner vaccine,timeSlot;
+
+    private int selectedVaccine,selectedTimeslot;
+
+    private Button bookAppointment;
+
+    private DatabaseHandler dbHandler;
+
+    private Appointment oldAppointment;
+
+    private static final String[] vaccines = {"Covaxin", "Pfizer", "Moderna","J&J Janssen"};
+
+    private static final String[] timeSlots = {"10:00 am", "11:00 am", "12:00 pm","1:00 pm","2:00 pm","3:00 pm","4:00 pm"};
+
+    // Required empty public constructor
     public AppointmentFragment() {
-        // Required empty public constructor
     }
 
+    /**
+     * This method is called on fragmnet create.
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * This Method is called when view is created.
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_appointment, container, false);
+
+        // Using bundle for arguments.
         Bundle arguments = getArguments();
         String hospitalName = arguments.getString("hospital");
         Boolean isUpdate = arguments.getBoolean("isUpdate");
+
+        //Init
         hospitalInput= v.findViewById(R.id.hos_name_input);
         hospitalInput.setText(hospitalName);
         vaccine = v.findViewById(R.id.vaccineList);
@@ -64,7 +92,8 @@ public class AppointmentFragment extends Fragment {
         dbHandler = DatabaseHandler.getInstance(getContext());
         dateText.setInputType(InputType.TYPE_NULL);
 
-        if(isUpdate){
+        //Using the same fragment to edit the appointment.
+        if(isUpdate) {
             oldAppointment = (Appointment) arguments.getSerializable("appointment");
             hospitalInput.setText(oldAppointment.getHospital());
             firstname.setText(oldAppointment.getFirstName());
@@ -81,6 +110,7 @@ public class AppointmentFragment extends Fragment {
             int monthJoin = cal.get(Calendar.MONTH);
             int yearJoin = cal.get(Calendar.YEAR);
 
+            //Date picker
             picker = new DatePickerDialog(getContext(), (datePicker, year, month, day) -> {
                 String dateStr = day+"/"+(month+1)+"/"+year;
                 dateText.setText(dateStr);
@@ -88,6 +118,7 @@ public class AppointmentFragment extends Fragment {
             picker.show();
         });
 
+        //On click listener for book appointment.
         bookAppointment.setOnClickListener(view -> {
             Appointment appointment = new Appointment();
             appointment.setUser(getUserId());
@@ -99,18 +130,23 @@ public class AppointmentFragment extends Fragment {
             appointment.setTime(timeSlots[selectedTimeslot]);
             appointment.setVaccine(vaccines[selectedVaccine]);
             appointment.setSlot(dateText.getText().toString());
-            boolean flag=false;
+
+            boolean flag;
+
+            //on Appointment update.
             if(isUpdate){
                 flag = dbHandler.updateAppointment(appointment,oldAppointment.getId());
             }else {
                 flag = dbHandler.addAppointment(appointment);
             }
+            // Check for success.
             if(flag){
-                Toast.makeText(getContext(),"Appointment Booked Successfully",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),"Appointment Booked Successfully.",Toast.LENGTH_SHORT).show();
                 resetForm();
+            } else {
+                Toast.makeText(getContext(),"Appointment Booking Failed.",Toast.LENGTH_SHORT).show();
             }
         });
-
 
         // Data Adapter for Screen Spinner
         ArrayAdapter dataAdapter  = new ArrayAdapter(getContext(),android.R.layout.simple_spinner_item,vaccines);
@@ -125,7 +161,7 @@ public class AppointmentFragment extends Fragment {
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
+                //No Action
             }
         });
 
@@ -133,6 +169,7 @@ public class AppointmentFragment extends Fragment {
         timeDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         timeSlot.setAdapter(timeDataAdapter);
 
+        //Time slot selected listener.
         timeSlot.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -147,6 +184,9 @@ public class AppointmentFragment extends Fragment {
         return v;
     }
 
+    /**
+     * This method is used to reset the form.
+     */
     private void resetForm() {
         firstname.setText("");
         lastname.setText("");
@@ -155,10 +195,12 @@ public class AppointmentFragment extends Fragment {
         dateText.setText("");
     }
 
+    /**
+     * get user id from shared preferences.
+      * @return
+     */
     private int getUserId (){
-
         SharedPreferences pref = getContext().getSharedPreferences("preferences", 0); // 0 - for private mode
-
         return pref.getInt("userId", -1); // getting Integer
     }
 }

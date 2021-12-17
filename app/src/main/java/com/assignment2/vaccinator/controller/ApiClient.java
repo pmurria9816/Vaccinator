@@ -1,6 +1,6 @@
 package com.assignment2.vaccinator.controller;
 
-import com.assignment2.vaccinator.ApiSet;
+import com.assignment2.vaccinator.api.ApiSet;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

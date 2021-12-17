@@ -1,4 +1,4 @@
-package com.assignment2.vaccinator.ui;
+package com.assignment2.vaccinator.ui.map;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -21,7 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.assignment2.vaccinator.AppointmentFragment;
+import com.assignment2.vaccinator.ui.appointment.AppointmentFragment;
 import com.assignment2.vaccinator.R;
 import com.assignment2.vaccinator.services.GetNearbyPlacesData;
 import com.google.android.gms.common.ConnectionResult;
@@ -91,8 +91,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
         return v;
     }
 
-
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -130,7 +128,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
     private void getCurrentLocation() {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getContext());
         // If location permission is allowed get the location else ask for user for permission
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             // getting user last location
             // we have used the last location for better performance and saving battery
             // as getting current accurate location would require more resources
@@ -141,7 +140,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleA
                     longitude = location.getLongitude();
                 }
             });
-        }else
+        } else
         {
             // Requesting Location permission
             ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.ACCESS_FINE_LOCATION},44);

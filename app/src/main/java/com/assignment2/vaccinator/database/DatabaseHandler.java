@@ -150,18 +150,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * @param email the email you wish to search
      * @return cursor a cursor object for iterating over the result
      * */
-    public Cursor getUserByEmail(String email){ //retrieving a single user
+    public Cursor getUserByEmail(String email) { //retrieving a single user
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor;
         cursor = db.rawQuery("select * from " + USER_TABLE_NAME+ " WHERE email =  '" + email + "'", null);
 
-        if(cursor != null){
+        if(cursor != null) {
             cursor.moveToFirst();
         }
 
         return cursor;
     }
-
 
     @SuppressLint("Range")
     /*
