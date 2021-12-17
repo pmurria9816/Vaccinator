@@ -10,9 +10,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 
-
+// This class for get the Data from the given Url
 public class DownloadURL {
 
+    // This method is used to fetched the data from remote Url and returning it as a String
     public String readUrl(String myUrl) throws IOException
     {
         String data = "";
@@ -21,14 +22,16 @@ public class DownloadURL {
 
         try {
             URL url = new URL(myUrl);
+            // Opening Http connection
             urlConnection=(HttpURLConnection) url.openConnection();
             urlConnection.connect();
-
+            // InputStream for fetching data from connection
             inputStream = urlConnection.getInputStream();
             BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
             StringBuffer sb = new StringBuffer();
 
             String line = "";
+            // Reading the data from buffer
             while((line = br.readLine()) != null)
             {
                 sb.append(line);
