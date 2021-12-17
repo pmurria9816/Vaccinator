@@ -148,6 +148,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return -1;
     }
 
+    @SuppressLint("Range")
+    public String getUsername(String login){
+        String username="";
+        Cursor cursor = getUserByEmail(login);
+
+        if(cursor.getCount() >= 1)
+        {
+            username = cursor.getString(cursor.getColumnIndex(USER_COL4)).concat(" ").concat(cursor.getString(cursor.getColumnIndex(USER_COL5)));
+        }
+        return  username;
+    }
+
     public boolean addAppointment(Appointment data){ //insert user method
         ContentValues values = new ContentValues();
         values.put(APPT_COL2, data.getUser());
@@ -222,7 +234,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 //populate the student grade object.
                 Appointment appointment = new Appointment();
 
-                //appointment.set(cursor.getInt(cursor.getColumnIndex(COL1)));
+                appointment.setId(cursor.getInt(cursor.getColumnIndex(APPT_COL1)));
                 appointment.setFirstName(cursor.getString(cursor.getColumnIndex(APPT_COL3)));
                 appointment.setLastName(cursor.getString(cursor.getColumnIndex(APPT_COL4)));
                 appointment.setEmail(cursor.getString(cursor.getColumnIndex(APPT_COL5)));

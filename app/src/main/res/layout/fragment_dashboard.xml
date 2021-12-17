@@ -8,19 +8,61 @@
     android:orientation="vertical"
     tools:context=".ui.dashboard.DashboardFragment">
 
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:contentDescription="content"-->
+<!--        android:src="@drawable/main_banner" />-->
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginTop="10dp"
+    android:padding="10dp">
+
     <ImageView
         android:id="@+id/imageView"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:contentDescription="content"
+        android:src="@drawable/logo" />
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:contentDescription="content"
-        android:src="@drawable/main_banner" />
+        android:layout_gravity="center"
+        android:layout_marginLeft="15dp"
+        android:text="Covi Vaccination"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+</LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="10dp">
+
+        <TextView
+            android:id="@+id/loggedUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"
+            android:text="Hello, User"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    </LinearLayout>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_total_vax"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20sp"
-        app:cardBackgroundColor="#A6A6A6"
+        app:cardBackgroundColor="#E4E4E4"
         app:cardCornerRadius="8sp"
         app:cardElevation="6sp">
 
@@ -40,22 +82,21 @@
                     android:id="@+id/tv_total_vax_lbl"
                     android:layout_width="230dp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="serif"
                     android:text="@string/total_vaccination_doses"
                     android:textColor="#000000"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    />
 
                 <TextView
                     android:id="@+id/tv_vax_today_lbl"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="10sp"
-                    android:fontFamily="serif"
+                    
                     android:text="@string/today"
                     android:textColor="#000000"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    />
             </TableRow>
 
             <TableRow
@@ -68,7 +109,7 @@
                     android:id="@+id/tv_total_vax_val"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="serif"
+                    
                     android:text="@string/value1"
                     android:textColor="#000000"
                     android:textSize="16sp"
@@ -79,7 +120,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10sp"
-                    android:fontFamily="serif"
+                    
                     android:text="@string/value_2"
                     android:textColor="#000000"
                     android:textSize="16sp"
@@ -97,22 +138,22 @@
                     android:id="@+id/tv_vax_dose1_lbl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="serif"
+                    
                     android:text="@string/dose_1"
                     android:textColor="#000000"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    />
 
                 <TextView
                     android:id="@+id/tv_vax_dose2_lbl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10sp"
-                    android:fontFamily="serif"
+                    
                     android:text="@string/dose_2"
                     android:textColor="#000000"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    />
             </TableRow>
 
             <TableRow
@@ -126,7 +167,7 @@
                     android:id="@+id/tv_vax_dose1_val"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="serif"
+                    
                     android:text="@string/value1"
                     android:textColor="#000000"
                     android:textSize="16sp"
@@ -137,7 +178,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10sp"
-                    android:fontFamily="serif"
+                    
                     android:text="value 2"
                     android:textColor="#000000"
                     android:textSize="16sp"
@@ -153,7 +194,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20sp"
-        app:cardBackgroundColor="#A6A6A6"
+        app:cardBackgroundColor="#E4E4E4"
         app:cardCornerRadius="8sp"
         app:cardElevation="6sp">
 
@@ -173,11 +214,11 @@
                     android:id="@+id/tv_total_sites_lbl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="serif"
+                    
                     android:text="Sites Conducting Vaccination"
                     android:textColor="#000000"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    />
 
             </TableRow>
 
@@ -191,7 +232,7 @@
                     android:id="@+id/tv_total_sites_val"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="serif"
+                    
                     android:text="value1"
                     android:textColor="#000000"
                     android:textSize="16sp"
@@ -210,22 +251,22 @@
                     android:id="@+id/tv_total_sites_govt_lbl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="serif"
+                    
                     android:text="Government"
                     android:textColor="#000000"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    />
 
                 <TextView
                     android:id="@+id/tv_total_sites_pvt_lbl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10sp"
-                    android:fontFamily="serif"
+                    
                     android:text="Private"
                     android:textColor="#000000"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    />
             </TableRow>
 
             <TableRow
@@ -239,7 +280,7 @@
                     android:id="@+id/tv_total_sites_govt_val"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="serif"
+                    
                     android:text="value1"
                     android:textColor="#000000"
                     android:textSize="16sp"
@@ -250,7 +291,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10sp"
-                    android:fontFamily="serif"
+                    
                     android:text="value 2"
                     android:textColor="#000000"
                     android:textSize="16sp"
@@ -266,7 +307,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20sp"
-        app:cardBackgroundColor="#A6A6A6"
+        app:cardBackgroundColor="#E4E4E4"
         app:cardCornerRadius="8sp"
         app:cardElevation="6sp">
 
@@ -286,22 +327,22 @@
                     android:id="@+id/tv_total_reg_lbl"
                     android:layout_width="230dp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="serif"
+                    
                     android:text="Total Registrations"
                     android:textColor="#000000"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    />
 
                 <TextView
                     android:id="@+id/tv_total_reg_today_lbl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10sp"
-                    android:fontFamily="serif"
+                    
                     android:text="Today"
                     android:textColor="#000000"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    />
             </TableRow>
 
             <TableRow
@@ -314,7 +355,7 @@
                     android:id="@+id/tv_total_reg_val"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="serif"
+                    
                     android:text="value1"
                     android:textColor="#000000"
                     android:textSize="16sp"
@@ -325,7 +366,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10sp"
-                    android:fontFamily="serif"
+                    
                     android:text="value 2"
                     android:textColor="#000000"
                     android:textSize="16sp"
@@ -343,22 +384,22 @@
                     android:id="@+id/tv_total_reg_age18_lbl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="serif"
+                    
                     android:text="Age 18 - 44"
                     android:textColor="#000000"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    />
 
                 <TextView
                     android:id="@+id/tv_total_reg_age45_lbl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10sp"
-                    android:fontFamily="serif"
+                    
                     android:text="Age 45+"
                     android:textColor="#000000"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    />
             </TableRow>
 
             <TableRow
@@ -372,7 +413,7 @@
                     android:id="@+id/tv_total_reg_age18_val"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="serif"
+                    
                     android:text="value1"
                     android:textColor="#000000"
                     android:textSize="16sp"
@@ -383,7 +424,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10sp"
-                    android:fontFamily="serif"
+                    
                     android:text="value 2"
                     android:textColor="#000000"
                     android:textSize="16sp"

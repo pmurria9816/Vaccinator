@@ -33,6 +33,7 @@ public class AppointmentFragment extends Fragment {
     int selectedVaccine,selectedTimeslot;
     Button bookAppointment;
     DatabaseHandler dbHandler;
+    Appointment oldAppointment;
     private final String[] vaccines = {"Covaxin", "Pfizer", "Moderna","J&J Janssen"};
     private final String[] timeSlots = {"10:00 am", "11:00 am", "12:00 pm","1:00 pm","2:00 pm","3:00 pm","4:00 pm"};
 
@@ -52,6 +53,7 @@ public class AppointmentFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_appointment, container, false);
         Bundle arguments = getArguments();
         String hospitalName = arguments.getString("hospital");
+        Boolean isUpdate = arguments.getBoolean("isUpdate");
         hospitalInput= v.findViewById(R.id.hos_name_input);
         hospitalInput.setText(hospitalName);
         vaccine = v.findViewById(R.id.vaccineList);
@@ -63,8 +65,17 @@ public class AppointmentFragment extends Fragment {
         age = v.findViewById(R.id.age_input);
         email = v.findViewById(R.id.email_input);
         dbHandler = DatabaseHandler.getInstance(getContext());
-
         dateText.setInputType(InputType.TYPE_NULL);
+
+        if(isUpdate){
+            oldAppointment = (Appointment) arguments.getSerializable("appointment");
+            hospitalInput.setText(oldAppointment.getHospital());
+            firstname.setText(oldAppointment.getFirstName());
+            lastname.setText(oldAppointment.getLastName());
+            age.setText(String.valueOf(oldAppointment.getAge()));
+            email.setText(oldAppointment.getEmail());
+            bookAppointment.setText("Edit Appointment");
+        }
 
         // Click Listener for Date editText
         dateText.setOnClickListener(view -> {
@@ -91,10 +102,14 @@ public class AppointmentFragment extends Fragment {
             appointment.setTime(timeSlots[selectedTimeslot]);
             appointment.setVaccine(vaccines[selectedVaccine]);
             appointment.setSlot(dateText.getText().toString());
-
-            boolean flag = dbHandler.addAppointment(appointment);
+            boolean flag=false;
+            if(isUpdate){
+                flag = dbHandler.updateAppointment(appointment,oldAppointment.getId());
+            }else {
+                flag = dbHandler.addAppointment(appointment);
+            }
             if(flag){
-                Toast.makeText(getContext(),"Appointment Booked Successfully",Toast.LENGTH_SHORT);
+                Toast.makeText(getContext(),"Appointment Booked Successfully",Toast.LENGTH_SHORT).show();
                 resetForm();
             }
         });
@@ -136,13 +151,16 @@ public class AppointmentFragment extends Fragment {
     }
 
     private void resetForm() {
-
+        firstname.setText("");
+        lastname.setText("");
+        age.setText("");
+        email.setText("");
+        dateText.setText("");
     }
 
     private int getUserId (){
 
         SharedPreferences pref = getContext().getSharedPreferences("preferences", 0); // 0 - for private mode
-        SharedPreferences.Editor editor = pref.edit();
 
         return pref.getInt("userId", -1); // getting Integer
     }

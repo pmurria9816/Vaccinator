@@ -1,7 +1,10 @@
 package com.assignment2.vaccinator.models;
 
-public class Appointment {
+import java.io.Serializable;
 
+public class Appointment implements Serializable {
+
+    private int id;
     private int user;
     private String firstName;
     private String lastName;
@@ -25,6 +28,14 @@ public class Appointment {
         this.slot = slot;
         this.time = time;
         this.vaccine = vaccine;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getUser() {

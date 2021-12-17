@@ -81,7 +81,7 @@ public class LaunchActivity extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                title.setText("Register");
+                title.setText("Register Now");
                 layout = findViewById(R.id.loginLayout);
                 layout.setVisibility(View.GONE);
                 layout = findViewById(R.id.registerLayout);
@@ -113,6 +113,7 @@ public class LaunchActivity extends AppCompatActivity {
                     SharedPreferences pref = getApplicationContext().getSharedPreferences("preferences", 0); // 0 - for private mode
                     SharedPreferences.Editor editor = pref.edit();
                     editor.putInt("userId", auth);
+                    editor.putString("username", dbHandler.getUsername(username.getText().toString()));
                     editor.commit();
 
                     Intent intent = new Intent(LaunchActivity.this, MainActivity.class);

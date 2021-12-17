@@ -1,5 +1,6 @@
 package com.assignment2.vaccinator.ui.dashboard;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +26,7 @@ public class DashboardFragment extends Fragment {
 
     private TextView tvTotalVax, tvDose1Vax, tvDose2Vax, tvTotalTodayVax,
             tvTotalCenters, tvGovtCenters,tvPrivateCenters,
-            tvTotalRegs, tv18Regs, tv45Regs, tvTodayRegs;
+            tvTotalRegs, tv18Regs, tv45Regs, tvTodayRegs,tvUsername;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -50,9 +51,15 @@ public class DashboardFragment extends Fragment {
         tv45Regs = root.findViewById(R.id.tv_total_reg_age45_val);
         tvTodayRegs = root.findViewById(R.id.tv_total_reg_today_val);
 
+        tvUsername = root.findViewById(R.id.loggedUser);
+
         dashboardViewModel.getCowinResponse().observe(getViewLifecycleOwner(), (Observer<TopBlock>) data -> {
             mapResponseData(data);
         });
+
+        SharedPreferences pref = getContext().getSharedPreferences("preferences", 0); // 0 - for private mode
+
+        tvUsername.setText(("Hello, ").concat(pref.getString("username", "User")));
 
         return root;
     }
